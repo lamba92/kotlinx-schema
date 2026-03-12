@@ -25,6 +25,7 @@ class JavaClassJsonSchemaGeneratorTest {
             {
               "$schema": "https://json-schema.org/draft/2020-12/schema",
               "$id": "kotlinx.schema.generator.test.JavaTestClass",
+              "description": "Class Description",
               "type": "object",
               "properties": {
                 "stringProperty": {
@@ -32,52 +33,64 @@ class JavaClassJsonSchemaGeneratorTest {
                   "description": "A string property"
                 },
                 "intProperty": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "An int property"
                 },
                 "longProperty": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "A long property"
                 },
                 "doubleProperty": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "A double property"
                 },
                 "floatProperty": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "A float property"
                 },
                 "booleanNullableProperty": {
-                  "type": "boolean"
+                  "type": "boolean",
+                  "description": "A nullable boolean property"
                 },
                 "nullableProperty": {
-                  "type": "string"
+                  "type": "string",
+                  "description": "A nullable string property"
                 },
                 "listProperty": {
                   "type": "array",
+                  "description": "A list of strings",
                   "items": {
                     "type": "string"
                   }
                 },
                 "mapProperty": {
                   "type": "object",
+                  "description": "A map of integers",
                   "additionalProperties": {
                     "type": "integer"
                   }
                 },
                 "nestedProperty": {
-                  "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.NestedProperty"
+                  "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.NestedProperty",
+                  "description": "A nested property"
                 },
                 "nestedListProperty": {
                   "type": "array",
+                  "description": "A list of nested properties",
                   "items": {
                     "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.NestedProperty"
                   }
                 },
                 "nestedMapProperty": {
                   "type": "object",
+                  "description": "A map of nested properties",
                   "additionalProperties": {
                     "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.NestedProperty"
                   }
                 },
                 "enumProperty": {
-                  "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.TestEnum"
+                  "$ref": "#/$defs/kotlinx.schema.generator.test.JavaTestClass.TestEnum",
+                  "description": "An enum property"
                 }
               },
               "additionalProperties": false,

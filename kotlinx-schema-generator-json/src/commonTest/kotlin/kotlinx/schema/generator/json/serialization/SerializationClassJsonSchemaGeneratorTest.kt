@@ -1,43 +1,10 @@
 package kotlinx.schema.generator.json.serialization
 
 import io.kotest.assertions.json.shouldEqualJson
-import kotlinx.serialization.SerialInfo
 import kotlinx.serialization.Serializable
 import kotlin.test.Test
 
 class SerializationClassJsonSchemaGeneratorTest {
-    @SerialInfo
-    annotation class CustomDescription(
-        val value: String,
-    )
-
-    @Serializable
-    @CustomDescription("A test class")
-    data class TestClass(
-        @property:CustomDescription("A string property")
-        val stringProperty: String,
-        val intProperty: Int,
-        val longProperty: Long,
-        val doubleProperty: Double,
-        val floatProperty: Float,
-        val booleanNullableProperty: Boolean?,
-        val nullableProperty: String? = null,
-        val listProperty: List<String> = emptyList(),
-        val mapProperty: Map<String, Int> = emptyMap(),
-        @property:CustomDescription("A custom nested property")
-        val nestedProperty: NestedProperty = NestedProperty("foo", 1),
-        @property:CustomDescription("A custom nested nullable property")
-        val nestedNullableProperty: NestedProperty? = null,
-        val nestedListProperty: List<NestedProperty> = emptyList(),
-        @property:CustomDescription("A custom nested nullable list property")
-        val nestedNullableListProperty: List<NestedProperty>? = null,
-        val nestedMapProperty: Map<String, NestedProperty> = emptyMap(),
-        @property:CustomDescription("A custom polymorphic property")
-        val polymorphicProperty: TestClosedPolymorphism = TestClosedPolymorphism.SubClass1("id1", "property1"),
-        val enumProperty: TestEnum = TestEnum.One,
-        val objectProperty: TestObject = TestObject,
-    )
-
     @Serializable
     @CustomDescription("Nested property class")
     data class NestedProperty(
@@ -94,7 +61,7 @@ class SerializationClassJsonSchemaGeneratorTest {
             $$"""
             {
               "$schema": "https://json-schema.org/draft/2020-12/schema",
-              "$id": "kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestClass",
+              "$id": "kotlinx.schema.generator.json.serialization.TestClass",
               "description": "A test class",
               "type": "object",
               "properties": {
@@ -103,37 +70,45 @@ class SerializationClassJsonSchemaGeneratorTest {
                   "description": "A string property"
                 },
                 "intProperty": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "An int property"
                 },
                 "longProperty": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "A long property"
                 },
                 "doubleProperty": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "A double property"
                 },
                 "floatProperty": {
-                  "type": "number"
+                  "type": "number",
+                  "description": "A float property"
                 },
                 "booleanNullableProperty": {
                   "type": [
                     "boolean",
                     "null"
-                  ]
+                  ],
+                  "description": "A nullable boolean property"
                 },
                 "nullableProperty": {
                   "type": [
                     "string",
                     "null"
-                  ]
+                  ],
+                  "description": "A nullable string property"
                 },
                 "listProperty": {
                   "type": "array",
+                  "description": "A list of strings",
                   "items": {
                     "type": "string"
                   }
                 },
                 "mapProperty": {
                   "type": "object",
+                  "description": "A map of integers",
                   "additionalProperties": {
                     "type": "integer"
                   }
@@ -155,6 +130,7 @@ class SerializationClassJsonSchemaGeneratorTest {
                 },
                 "nestedListProperty": {
                   "type": "array",
+                  "description": "A list of nested properties",
                   "items": {
                     "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.NestedProperty"
                   }
@@ -171,6 +147,7 @@ class SerializationClassJsonSchemaGeneratorTest {
                 },
                 "nestedMapProperty": {
                   "type": "object",
+                  "description": "A map of nested properties",
                   "additionalProperties": {
                     "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.NestedProperty"
                   }
@@ -180,10 +157,12 @@ class SerializationClassJsonSchemaGeneratorTest {
                   "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestClosedPolymorphism"
                 },
                 "enumProperty": {
-                  "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestEnum"
+                  "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestEnum",
+                  "description": "An enum property"
                 },
                 "objectProperty": {
-                  "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestObject"
+                  "$ref": "#/$defs/kotlinx.schema.generator.json.serialization.SerializationClassJsonSchemaGeneratorTest.TestObject",
+                  "description": "A test object property"
                 }
               },
               "additionalProperties": false,
